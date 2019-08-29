@@ -8,6 +8,8 @@ module.exports = _arch => {
       return mobile;
     case 'api':
       return api;
+    case 'web':
+      return web;
     default:
       return web;
   }

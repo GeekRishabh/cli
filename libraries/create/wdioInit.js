@@ -7,6 +7,7 @@ const { perform: runNpmInstall } = require('../install');
 
 // Load all the necessary questions...
 const {
+  appName,
   stack,
   browserStackUser,
   browserStackKey,
@@ -16,30 +17,25 @@ const {
   screenshotPath,
   baseUrl,
   waitTimeout,
-  retryCount,
-  appName
+  retryCount
 } = require('../../questions');
-const _arch = require('./ga-wdio');
+
 const arch = {
   type: 'list',
-  name: 'type',
+  name: 'arch',
   message: 'What you are building wdio for ?',
   default: 'web',
-  choices: ['api', 'web', 'mobile'],
-  validate: function(answer) {
-    if (answer.length < 1) {
-      return 'You must choose at least one ';
-    }
-    return true;
-  }
+  choices: ['web', 'api', 'mobile']
 };
 
 const initWdio = async (options, cmd) => {
   drawLine();
+
   // Start the CLI communication...
   inquirer
     .prompt([
       arch,
+      appName,
       stack,
       browserStackUser,
       browserStackKey,
@@ -52,6 +48,7 @@ const initWdio = async (options, cmd) => {
     ])
     .then(async answers => {
       drawLine();
+      console.log(answers, '  answers.arch>>>');
 
       console.log('\n?'.green, 'Please wait...'.yellow);
 
@@ -60,7 +57,7 @@ const initWdio = async (options, cmd) => {
       const { init, generateFolders, generateFiles } = require('./creator')(
         answers.arch
       );
-      console.log(answers.arch, '  answers.arch>>>');
+
       showInfo('Creating your', answers.appName, 'directory...');
       await init(answers.appName);
 
