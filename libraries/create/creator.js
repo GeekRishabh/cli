@@ -1,13 +1,14 @@
-const gaWdio = require('./ga-wdio');
-const react = require('./react');
+const web = require('./web');
+const api = require('./api');
+const mobile = require('./mobile');
 
 module.exports = _arch => {
   switch (_arch) {
-    case 'ga-wdio':
-      return gaWdio;
-    case 'react':
-      return react;
+    case 'mobile':
+      return mobile;
+    case 'api':
+      return api;
     default:
-      return react;
+      return web;
   }
 };
