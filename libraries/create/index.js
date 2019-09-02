@@ -4,7 +4,7 @@ const inquirer = require('inquirer');
 
 const { drawLine, showInfo } = require('../helpers/terminal');
 const { arch } = require('../../questions');
-const react = require('./react');
+const react = require('./reactInit');
 const wdio = require('./wdioInit');
 
 const create = async (options, cmd) => {
@@ -17,9 +17,9 @@ const create = async (options, cmd) => {
       case 'wdio':
         return wdio.initWdio();
       case 'react':
-        return react._arch();
+        return react.initReact();
       default:
-        return react;
+        return react.initReact();
     }
   });
 };
