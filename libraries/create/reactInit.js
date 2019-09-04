@@ -41,16 +41,16 @@ const initReact = async (options, cmd) => {
   inquirer
     .prompt([
       arch,
-      appName,
-      stack,
-      browserStackUser,
-      browserStackKey,
-      osName,
-      osVersion,
-      logLevel,
-      baseUrl,
-      waitTimeout,
-      retryCount
+      appName
+      // stack,
+      // browserStackUser,
+      // browserStackKey,
+      // osName,
+      // osVersion,
+      // logLevel,
+      // baseUrl,
+      // waitTimeout,
+      // retryCount
     ])
     .then(async answers => {
       drawLine();
@@ -60,22 +60,20 @@ const initReact = async (options, cmd) => {
 
       drawLine();
 
-      const { init, generateFolders, generateFiles } = require('./creator')(
-        answers.arch
-      );
+      const { init } = require('./creator')(answers.arch);
 
       showInfo('Creating your', answers.appName, 'directory...');
       await init(answers.appName);
 
       showInfo('Adding our directories into', answers.appName, 'project...');
-      await generateFolders(answers.appName);
+      // await generateFolders(answers.appName);
 
       showInfo(
         'Adding files into those directories of',
         answers.appName,
         'project...'
       );
-      await generateFiles(answers);
+      // await generateFiles(answers);
 
       showInfo(
         'Installing NPM dependencies to',
